@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────
+   Design Tokens — FEDDA v3
+────────────────────────────────────────── */
+:root {
+  /* Signature accent: vivid violet → indigo */
+  --accent-from:    #8b5cf6;
+  --accent-to:      #6366f1;
+  --accent-glow:    rgba(139, 92, 246, 0.35);
+  --accent-subtle:  rgba(139, 92, 246, 0.12);
+
+  /* Backgrounds — near-black with a faint blue tint */
+  --bg-app:         #07070d;
+  --bg-main:        #04040a;
+  --bg-sidebar:     #080810;
+  --bg-card:        rgba(255,255,255,0.03);
+  --bg-card-hover:  rgba(255,255,255,0.055);
+
+  /* Borders */
+  --border-subtle:  rgba(255,255,255,0.06);
+  --border-accent:  rgba(139, 92, 246, 0.3);
+}
+
+/* ──────────────────────────────────────────
+   Theme utility classes
+────────────────────────────────────────── */
+.theme-bg-app     { background-color: var(--bg-app);     transition: background-color 0.5s ease; }
+.theme-bg-main    { background-color: var(--bg-main);    transition: background-color 0.5s ease; }
+.theme-bg-sidebar { background-color: var(--bg-sidebar); transition: background-color 0.5s ease; }
+
+/* ── Active sidebar item — gradient pill ── */
+.theme-active-tab {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 18px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* Shine sweep on active tab */
+.theme-active-tab::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  animation: tab-shine 3.5s ease-in-out infinite;
+}
+
+@keyframes tab-shine {
+  0%   { left: -100%; }
+  30%  { left: 120%; }
+  100% { left: 120%; }
+}
+
+/* ── Accent gradient text ── */
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Accent glow border ── */
+.border-accent-glow {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ── Grid background overlay ── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Radial noise vignette ── */
+.vignette-radial {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+}
+
+/* ── Accent glow dot (status indicators) ── */
+.dot-online {
+  width: 6px; height: 6px;
+  border-radius: 9999px;
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
+}
+.dot-offline {
+  width: 6px; height: 6px;
+  border-radius: 9999px;
+  background: #475569;
+}
+
+/* ──────────────────────────────────────────
+   Reset
+────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-app);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ──────────────────────────────────────────
+   Custom scrollbar
+────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+
+.custom-scrollbar::-webkit-scrollbar       { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
+
+/* ──────────────────────────────────────────
+   Animations
+────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-10px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(200,200,255,0.2); }
+  50%       { box-shadow: 0 0 22px rgba(200,200,255,0.45); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes progress-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.animate-fade-in        { animation: fade-in        0.3s ease-out; }
+.animate-slide-up       { animation: slide-up       0.4s ease-out; }
+.animate-slide-in-left  { animation: slide-in-left  0.25s ease-out; }
+.animate-glow-pulse     { animation: glow-pulse     2s ease-in-out infinite; }
+.animate-progress-pulse { animation: progress-pulse 1.5s ease-in-out infinite; }
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.03) 0%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.03) 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* ──────────────────────────────────────────
+   Glassmorphism utility
+────────────────────────────────────────── */
+.glass-panel {
+  background:     rgba(14, 14, 22, 0.75);
+  backdrop-filter: blur(14px);
+  border:         1px solid rgba(255,255,255,0.06);
+}
+
+/* ──────────────────────────────────────────
+   Tooltip
+────────────────────────────────────────── */
+.tooltip-trigger { position: relative; }
+
+.tooltip-trigger:hover .tooltip-content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(8, 8, 16, 0.96);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #cbd5e1;
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  z-index: 999;
+}
