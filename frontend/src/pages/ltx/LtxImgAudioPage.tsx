@@ -192,14 +192,14 @@ export const LtxImgAudioPage = () => {
     setCurrentVideo(null);
     setIsGenerating(true);
 
-    fetch(`${BACKEND_API.BASE_URL}/api/workflow/node-map/ltx-img-audio`)
+    fetch(`${BACKEND_API.BASE_URL}/api/workflow/node-map/ltx-lipsync-v2`)
       .then(r => r.json()).then(d => { if (d.success) registerNodeMap(d.node_map); }).catch(() => {});
 
     try {
       const res = await fetch(`${BACKEND_API.BASE_URL}${BACKEND_API.ENDPOINTS.GENERATE}`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          workflow_id: 'ltx-img-audio',
+          workflow_id: 'ltx-lipsync-v2',
           params: {
             image: imageFilename, audio: audioFilename,
             audio_start: audioStart, audio_duration: audioDuration,
