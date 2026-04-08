@@ -564,9 +564,14 @@ async def get_generation_status(prompt_id: str):
 # ─────────────────────────────────────────────
 # Entry point
 # ─────────────────────────────────────────────
+class SyncHFRequest(BaseModel):
+    repo: str
+    subfolder: str = "custom"
+
+
 @app.post("/api/models/sync-hf")
-async def sync_models(repo: str, subfolder: str = "custom"):
-    return model_downloader.sync_hf_repo(repo, subfolder)
+async def sync_models(req: SyncHFRequest):
+    return model_downloader.sync_hf_repo(req.repo, req.subfolder)
 
 @app.get("/api/models/status/{filename}")
 async def get_download_status(filename: str):
