@@ -31,7 +31,7 @@ ln -sf /workspace/input /app/ComfyUI/input
 mkdir -p /workspace/custom_nodes
 echo "[SETUP] Ensuring critical nodes are present..."
 
-for node in ComfyUI-Impact-Pack comfyui-impact-subpack rgthree-comfy ComfyUI-IF_AI_tools; do
+for node in ComfyUI-Impact-Pack ComfyUI-Impact-Subpack rgthree-comfy ComfyUI-IF_AI_tools; do
     if [ ! -d "/workspace/custom_nodes/$node" ]; then
         echo "[SETUP] Copying $node from base image..."
         cp -r "/app/custom_nodes_base/$node" "/workspace/custom_nodes/"
@@ -64,6 +64,16 @@ if [ ! -f "$FULL_MARKER" ]; then
 else
     echo "[NODES] All nodes already installed."
 fi
+
+# --- 4.1. Re-pin backend-critical deps after node requirement installs ---
+# Some custom-node requirements can downgrade shared deps (e.g. pydantic/click)
+# and break backend/runtime behavior. Re-pin here for deterministic startup.
+echo "[SETUP] Re-pinning shared Python dependencies..."
+python3 -m pip install --no-cache-dir \
+    "click==8.1.8" \
+    "pydantic==2.12.5" \
+    >/var/log/pip_repin.log 2>&1 || true
+python3 -m pip check >/var/log/pip_check.log 2>&1 || true
 
 # --- 5. Copy bundled assets ---
 cp -n /app/assets/styles.csv /app/ComfyUI/styles.csv 2>/dev/null || true

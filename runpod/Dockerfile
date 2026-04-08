@@ -58,14 +58,20 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app/ComfyUI \
 # Pre-install critical custom nodes in Docker image
 RUN mkdir -p /app/custom_nodes_base && cd /app/custom_nodes_base \
     && git clone --depth 1 https://github.com/ltdrdata/ComfyUI-Impact-Pack.git \
-    && git clone --depth 1 https://github.com/comfyorg/comfyui-impact-subpack.git \
+    && git clone --depth 1 https://github.com/ltdrdata/ComfyUI-Impact-Subpack.git \
     && git clone --depth 1 https://github.com/rgthree/rgthree-comfy.git \
     && git clone --depth 1 https://github.com/if-ai/ComfyUI-IF_AI_tools.git
 
 # Install requirements for pre-installed nodes
 RUN cd /app/custom_nodes_base/ComfyUI-Impact-Pack && pip install --no-cache-dir -r requirements.txt || true \
-    && cd /app/custom_nodes_base/comfyui-impact-subpack && pip install --no-cache-dir -r requirements.txt || true \
+    && cd /app/custom_nodes_base/ComfyUI-Impact-Subpack && pip install --no-cache-dir -r requirements.txt || true \
     && cd /app/custom_nodes_base/ComfyUI-IF_AI_tools && pip install --no-cache-dir -r requirements.txt || true
+
+# Re-pin backend-critical deps after custom-node requirements to avoid runtime drift.
+RUN python3 -m pip install --no-cache-dir \
+    "click==8.1.8" \
+    "pydantic==2.12.5" \
+    && python3 -m pip check || true
 
 # Build tools + insightface
 RUN python3 -m pip install --no-cache-dir cmake ninja Cython \
