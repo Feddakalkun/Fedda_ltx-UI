@@ -91,14 +91,14 @@ function FeddaApp() {
       case 'flux':
       case 'qwen':
       case 'image-other':
-        return <ImageStudioPage activeTab={activeTab} />;
+        return <ImageStudioPage activeTab={activeTab} onTabChange={handleTabChange} />;
       case 'video':
       case 'wan22-vid2vid':
       case 'wan22-img2vid':
       case 'ltx':
       case 'ltx-flf':
       case 'ltx-img-audio':
-        return <VideoStudioPage activeTab={activeTab} />;
+        return <VideoStudioPage activeTab={activeTab} onTabChange={handleTabChange} />;
       case 'library':
         return <LibraryPage />;
       case 'settings':
