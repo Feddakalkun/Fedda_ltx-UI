@@ -26,6 +26,10 @@ on:
   # Allow manual trigger from the Actions tab
   workflow_dispatch:
 
+concurrency:
+  group: runpod-image-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository_owner }}/fedda-hub-v3

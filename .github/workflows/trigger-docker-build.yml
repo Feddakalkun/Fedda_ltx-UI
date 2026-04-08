@@ -1,13 +1,9 @@
 name: Trigger Docker Build
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'frontend/**'
-      - 'backend/**'
-      - 'config/**'
-      - 'assets/**'
+  # Disabled auto-trigger to avoid duplicate long-running builds.
+  # Use manual dispatch only if you still need to trigger external docker repo.
+  workflow_dispatch:
 
 jobs:
   trigger:

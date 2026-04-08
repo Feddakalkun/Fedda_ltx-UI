@@ -1,9 +1,9 @@
 name: Build & Push Docker Image
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch: # Manual trigger
+  # Deprecated in favor of docker-runpod.yml.
+  # Kept manual-only to avoid duplicate image builds on each push.
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io

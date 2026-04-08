@@ -4,15 +4,18 @@
 # Multi-stage: Node.js frontend build → CUDA runtime
 # ============================================================================
 
-# Stage 1: Build React frontend from local files
+# Stage 1: Build React frontend (cache-optimized)
 FROM node:22-alpine AS frontend-builder
 
-# Copy app code from build context (this repo contains everything)
-COPY . /app
-
-# Build frontend
 WORKDIR /app/frontend
-RUN npm ci --no-audit --no-fund && npm run build
+
+# Install deps first (best cache hit when app code changes but deps do not)
+COPY frontend/package*.json ./
+RUN npm ci --no-audit --no-fund
+
+# Then copy frontend source and build
+COPY frontend/ ./
+RUN npm run build
 
 # ============================================================================
 # Stage 2: Runtime image with CUDA + Python + all services
@@ -107,10 +110,10 @@ RUN python3 -m pip install --no-cache-dir \
     && python3 -m pip install --no-cache-dir chatterbox-tts \
     && python3 -m pip install --no-cache-dir "numpy==1.26.4" --no-deps
 
-# --- Copy app code from the cloned main repo (stage 1) ---
-COPY --from=frontend-builder /app/backend /app/backend
-COPY --from=frontend-builder /app/config /app/config
-COPY --from=frontend-builder /app/assets /app/assets
+# --- Copy app code from repository context ---
+COPY backend /app/backend
+COPY config /app/config
+COPY assets /app/assets
 COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
 
 # --- Copy Docker-specific files from this repo ---
