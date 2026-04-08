@@ -93,7 +93,14 @@ echo "[MODELS] Models available for download via UI"
 # --- 8. Launch all services via supervisord ---
 echo ""
 echo "========================================="
-echo "  Starting services..."
-echo "  UI will be available on port 3000"
+if [ "${SKIP_NGINX:-false}" = "true" ]; then
+    echo "  Starting services (API-only mode)..."
+    echo "  Frontend handled by external container"
+    SUPERVISORD_CONF=/etc/supervisor/conf.d/supervisord-api.conf
+else
+    echo "  Starting services..."
+    echo "  UI will be available on port 3000"
+    SUPERVISORD_CONF=/etc/supervisor/conf.d/supervisord.conf
+fi
 echo "========================================="
-exec supervisord -c /etc/supervisor/conf.d/supervisord.conf
+exec supervisord -c "$SUPERVISORD_CONF"

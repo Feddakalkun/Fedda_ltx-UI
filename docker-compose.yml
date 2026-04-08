@@ -1,0 +1,65 @@
+# ============================================================================
+# FEDDA AI Studio — Two-container compose
+#
+#   frontend  — nginx + React SPA (no GPU required)  → http://localhost:3000
+#   backend   — CUDA + ComfyUI + FastAPI + Jupyter    (requires NVIDIA GPU)
+#
+# Quick start:
+#   docker compose up --build
+#
+# Frontend only (point at a remote RunPod backend):
+#   BACKEND_HOST=your-runpod-url docker compose up frontend --build
+#
+# RunPod / single-container deployment:
+#   use  runpod/docker-compose.yml  instead
+# ============================================================================
+
+services:
+
+  # --------------------------------------------------------------------------
+  # Frontend — lightweight nginx image, ~25 MB
+  # --------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # --------------------------------------------------------------------------
+  # Backend — CUDA runtime + ComfyUI + FastAPI + Jupyter
+  # Requires an NVIDIA GPU and the NVIDIA Container Toolkit.
+  # --------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: runpod/Dockerfile
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - SKIP_NGINX=true          # frontend container handles reverse-proxy
+    ports:
+      - "8000:8000"              # FastAPI (internal access via frontend proxy)
+      - "8199:8199"              # ComfyUI direct access (optional)
+      - "8888:8888"              # JupyterLab
+    volumes:
+      - workspace:/workspace     # models, outputs, custom nodes
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  workspace:
+    # Mount an existing host path instead of a named volume:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /path/to/your/workspace

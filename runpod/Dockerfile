@@ -111,6 +111,8 @@ COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
 COPY scripts/ /app/scripts/
 COPY runpod/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY runpod/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# api-only config used when SKIP_NGINX=true (two-container docker-compose)
+COPY runpod/supervisord-api.conf /etc/supervisor/conf.d/supervisord-api.conf
 
 # Make scripts executable
 RUN chmod +x /app/scripts/*.sh
