@@ -9,7 +9,7 @@ export const LandingPage = ({ onEnter }: LandingPageProps) => {
   const [activeVideo, setActiveVideo] = useState<'bg' | 'grok'>('bg');
   const [backendOnline, setBackendOnline] = useState(false);
   const [comfyOnline, setComfyOnline] = useState(false);
-  const [comfyFullyReady, setComfyFullyReady] = useState(false);
+  const [, setComfyFullyReady] = useState(false);
   const [startupDetail, setStartupDetail] = useState('Initializing services...');
   const [checks, setChecks] = useState(0);
   const [lastCheckedAt, setLastCheckedAt] = useState<number>(Date.now());
