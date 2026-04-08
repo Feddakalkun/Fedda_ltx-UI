@@ -331,12 +331,17 @@ export const LtxFlfPage = () => {
 
           {/* Generate */}
           <div className="pb-4">
-            <button disabled={!canGenerate} onClick={handleGenerate}
+            <button
+              disabled={!canGenerate}
+              onClick={handleGenerate}
               className={`w-full py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.35em] transition-all duration-300 flex items-center justify-center gap-3 ${
-                canGenerate
-                  ? 'bg-violet-500 text-white hover:bg-violet-400 hover:shadow-[0_0_40px_rgba(139,92,246,0.35)] active:scale-[0.98]'
-                  : 'bg-white/[0.03] text-white/10 cursor-not-allowed border border-white/[0.04]'
-              }`}>
+                canGenerate ? 'text-white active:scale-[0.98] cursor-pointer' : 'bg-white/[0.03] text-white/10 cursor-not-allowed border border-white/[0.04]'
+              }`}
+              style={canGenerate ? {
+                background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                boxShadow: '0 0 28px rgba(139,92,246,0.4)',
+              } : {}}
+            >
               {isGenerating
                 ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Generating…</span></>
                 : <><Play className="w-4 h-4" /><span>Generate</span></>

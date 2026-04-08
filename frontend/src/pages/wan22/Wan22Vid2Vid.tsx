@@ -514,8 +514,12 @@ export const Wan22Vid2Vid = () => {
               className={`w-full py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.4em] transition-all duration-500 flex items-center justify-center gap-3 ${
                 !uploadedVideoName || !prompt1.trim() || isGenerating
                   ? 'bg-white/5 text-white/10 cursor-not-allowed'
-                  : 'bg-violet-600 text-white hover:bg-violet-500 hover:shadow-[0_0_50px_rgba(139,92,246,0.4)]'
+                  : 'text-white active:scale-[0.98] cursor-pointer'
               }`}
+              style={(!uploadedVideoName || !prompt1.trim() || isGenerating) ? {} : {
+                background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                boxShadow: '0 0 28px rgba(139,92,246,0.4)',
+              }}
             >
               {isGenerating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Video className="w-4 h-4" />}
               <span>{isGenerating ? 'Generating...' : 'Generate'}</span>
