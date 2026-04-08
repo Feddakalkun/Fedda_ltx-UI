@@ -128,7 +128,7 @@ export const ZImageTxt2Img = () => {
 
           {/* Header */}
           <div className="flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+            <Sparkles className="w-3.5 h-3.5 text-violet-500" />
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Z-Image</span>
           </div>
 
@@ -156,9 +156,9 @@ export const ZImageTxt2Img = () => {
             </div>
 
             {loraName ? (
-              <div className="bg-emerald-500/8 border border-emerald-500/20 rounded-xl px-3 py-2.5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-emerald-300/90">{loraLabel(loraName)}</span>
-                <span className="text-[9px] font-mono text-emerald-500/50">×{loraStrength.toFixed(1)}</span>
+              <div className="bg-violet-500/8 border border-violet-500/20 rounded-xl px-3 py-2.5 flex items-center justify-between">
+                <span className="text-xs font-semibold text-violet-300/90">{loraLabel(loraName)}</span>
+                <span className="text-[9px] font-mono text-violet-500/50">×{loraStrength.toFixed(1)}</span>
               </div>
             ) : (
               <p className="text-[10px] text-white/10 font-medium">None — workflow default</p>
@@ -173,7 +173,7 @@ export const ZImageTxt2Img = () => {
                 onFocus={() => setShowLoraList(true)}
                 onBlur={() => setTimeout(() => setShowLoraList(false), 150)}
                 placeholder={availableLoras.length ? `Search ${availableLoras.length} LoRAs…` : 'Loading…'}
-                className="w-full bg-white/[0.02] border border-white/[0.06] rounded-xl px-3 py-2 text-[11px] text-white/70 placeholder-white/15 focus:outline-none focus:border-emerald-500/25 transition-all"
+                className="w-full bg-white/[0.02] border border-white/[0.06] rounded-xl px-3 py-2 text-[11px] text-white/70 placeholder-white/15 focus:outline-none focus:border-violet-500/25 transition-all"
               />
               {showLoraList && filteredLoras.length > 0 && (
                 <div className="absolute z-50 w-full mt-1 bg-[#111115] border border-white/8 rounded-xl shadow-2xl max-h-52 overflow-y-auto custom-scrollbar">
@@ -192,11 +192,11 @@ export const ZImageTxt2Img = () => {
               <div className="space-y-1.5">
                 <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-white/20">
                   <span>Strength</span>
-                  <span className="text-emerald-400/70 font-mono">{loraStrength.toFixed(2)}</span>
+                  <span className="text-violet-400/70 font-mono">{loraStrength.toFixed(2)}</span>
                 </div>
                 <input type="range" min="0" max="2" step="0.05" value={loraStrength}
                   onChange={e => setLoraStrength(parseFloat(e.target.value))}
-                  className="w-full h-1 rounded-full appearance-none outline-none accent-emerald-500 cursor-pointer" />
+                  className="w-full h-1 rounded-full appearance-none outline-none accent-violet-500 cursor-pointer" />
               </div>
             )}
           </div>
@@ -215,7 +215,7 @@ export const ZImageTxt2Img = () => {
                   onClick={() => { setWidth(r.w); setHeight(r.h); }}
                   className={`py-2 rounded-lg border text-[8px] font-black uppercase tracking-wider transition-all ${
                     width === r.w && height === r.h
-                      ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                      ? 'bg-violet-500/10 border-violet-500/30 text-violet-400'
                       : 'bg-white/[0.02] border-white/[0.06] text-white/20 hover:text-white/50 hover:border-white/15'
                   }`}>{r.label}
                 </button>
@@ -226,7 +226,7 @@ export const ZImageTxt2Img = () => {
                 <div key={label as string} className="space-y-1">
                   <span className="text-[8px] font-black uppercase tracking-widest text-white/15">{label as string}</span>
                   <input type="number" value={val as number} onChange={e => (fn as (v: number) => void)(Number(e.target.value))}
-                    className="w-full bg-white/[0.02] border border-white/[0.06] rounded-lg px-2.5 py-1.5 text-[11px] font-mono text-white/50 focus:border-emerald-500/20 outline-none" />
+                    className="w-full bg-white/[0.02] border border-white/[0.06] rounded-lg px-2.5 py-1.5 text-[11px] font-mono text-white/50 focus:border-violet-500/20 outline-none" />
                 </div>
               ))}
             </div>
@@ -236,11 +236,11 @@ export const ZImageTxt2Img = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-white/25">
               <span>Steps</span>
-              <span className="text-emerald-400/70 font-mono">{steps}</span>
+              <span className="text-violet-400/70 font-mono">{steps}</span>
             </div>
             <input type="range" min="1" max="25" step="1" value={steps}
               onChange={e => setSteps(Number(e.target.value))}
-              className="w-full h-1 rounded-full appearance-none outline-none accent-emerald-500 cursor-pointer" />
+              className="w-full h-1 rounded-full appearance-none outline-none accent-violet-500 cursor-pointer" />
             <div className="flex justify-between text-[8px] font-mono text-white/10">
               <span>1</span><span>25</span>
             </div>
@@ -249,11 +249,11 @@ export const ZImageTxt2Img = () => {
           {/* Seed */}
           <div className="flex gap-2">
             <input type="number" value={seed} onChange={e => setSeed(parseInt(e.target.value))}
-              className="flex-1 bg-white/[0.02] border border-white/[0.06] rounded-xl py-2.5 px-3 text-[11px] font-mono text-white/40 focus:border-emerald-500/20 outline-none" />
+              className="flex-1 bg-white/[0.02] border border-white/[0.06] rounded-xl py-2.5 px-3 text-[11px] font-mono text-white/40 focus:border-violet-500/20 outline-none" />
             <button onClick={() => setSeed(-1)}
               className={`p-2.5 rounded-xl border transition-all ${
                 seed === -1
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                  ? 'bg-violet-500/10 border-violet-500/30 text-violet-400'
                   : 'bg-white/[0.02] border-white/[0.06] text-white/20 hover:text-white/50'
               }`}>
               <RefreshCw className="w-3.5 h-3.5" />
@@ -277,12 +277,19 @@ export const ZImageTxt2Img = () => {
 
           {/* Generate */}
           <div className="pb-6">
-            <button disabled={!prompt.trim() || isGenerating} onClick={handleGenerate}
+            <button
+              disabled={!prompt.trim() || isGenerating}
+              onClick={handleGenerate}
               className={`w-full py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.35em] transition-all duration-300 flex items-center justify-center gap-3 ${
                 !prompt.trim() || isGenerating
                   ? 'bg-white/[0.03] text-white/10 cursor-not-allowed border border-white/[0.04]'
-                  : 'bg-emerald-500 text-black hover:bg-emerald-400 hover:shadow-[0_0_40px_rgba(16,185,129,0.3)] active:scale-[0.98]'
-              }`}>
+                  : 'text-white active:scale-[0.98] cursor-pointer'
+              }`}
+              style={!prompt.trim() || isGenerating ? {} : {
+                background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                boxShadow: '0 0 28px rgba(139,92,246,0.4)',
+              }}
+            >
               {isGenerating
                 ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Generating…</span></>
                 : <><Sparkles className="w-4 h-4" /><span>Generate</span></>
@@ -309,7 +316,7 @@ export const ZImageTxt2Img = () => {
                 {zoom ? 'Fit' : 'Fill'}
               </button>
               <button onClick={handleDownload}
-                className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-white/20 hover:text-emerald-400 transition-colors px-2 py-1 rounded-lg hover:bg-white/5">
+                className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-white/20 hover:text-violet-400 transition-colors px-2 py-1 rounded-lg hover:bg-white/5">
                 <Download className="w-3 h-3" /> Save
               </button>
             </div>
@@ -322,10 +329,10 @@ export const ZImageTxt2Img = () => {
           {isGenerating && !currentImage && (
             <div className="flex flex-col items-center gap-4">
               <div className="relative w-16 h-16">
-                <div className="absolute inset-0 rounded-full border border-emerald-500/20 animate-ping" />
-                <div className="absolute inset-2 rounded-full border border-emerald-500/30 animate-ping" style={{ animationDelay: '0.3s' }} />
+                <div className="absolute inset-0 rounded-full border border-violet-500/20 animate-ping" />
+                <div className="absolute inset-2 rounded-full border border-violet-500/30 animate-ping" style={{ animationDelay: '0.3s' }} />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Loader2 className="w-6 h-6 text-emerald-500/60 animate-spin" />
+                  <Loader2 className="w-6 h-6 text-violet-500/60 animate-spin" />
                 </div>
               </div>
               <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
@@ -357,7 +364,7 @@ export const ZImageTxt2Img = () => {
               />
               {isGenerating && (
                 <div className="absolute inset-0 rounded-2xl bg-black/50 flex items-center justify-center">
-                  <Loader2 className="w-6 h-6 text-emerald-400 animate-spin" />
+                  <Loader2 className="w-6 h-6 text-violet-400 animate-spin" />
                 </div>
               )}
             </div>
@@ -394,7 +401,7 @@ export const ZImageTxt2Img = () => {
                   onClick={() => setCurrentImage(url)}
                   className={`w-full aspect-square rounded-xl overflow-hidden border-2 transition-all hover:opacity-90 ${
                     currentImage === url
-                      ? 'border-emerald-500/60 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
+                      ? 'border-violet-500/60 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
                       : 'border-white/[0.06] hover:border-white/20'
                   }`}>
                   <img src={url} alt={`${i + 1}`} className="w-full h-full object-cover" />

@@ -203,27 +203,28 @@ body {
 }
 
 /* ──────────────────────────────────────────
-   Tooltip
+   Tooltip — shows to the RIGHT (for slim sidebar)
 ────────────────────────────────────────── */
 .tooltip-trigger { position: relative; }
 
 .tooltip-trigger:hover .tooltip-content {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(-50%) translateX(0);
   pointer-events: auto;
 }
 
 .tooltip-content {
   position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background: rgba(8, 8, 16, 0.96);
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+  background: rgba(8, 8, 20, 0.96);
   border: 1px solid rgba(255,255,255,0.1);
   color: #cbd5e1;
   font-size: 11px;
-  padding: 5px 9px;
-  border-radius: 7px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.15s ease, transform 0.15s ease;
