@@ -125,3 +125,13 @@ rm -rf /app/ComfyUI/custom_nodes
 ln -sf "$NODES_DIR" /app/ComfyUI/custom_nodes
 
 echo "[NODES] Custom nodes symlinked to ComfyUI."
+
+# Re-pin shared backend-critical packages that can be downgraded by
+# arbitrary custom-node requirements.
+echo "[NODES] Re-pinning backend-critical Python deps..."
+python3 -m pip install --no-cache-dir \
+  "click==8.1.8" \
+  "pydantic==2.12.5" \
+  --no-warn-script-location \
+  >/var/log/node_install_repin.log 2>&1 || true
+python3 -m pip check >/var/log/node_install_pip_check.log 2>&1 || true
