@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Loader2, Play, CheckCircle2, Cpu, Activity } from 'lucide-react';
+import { Loader2, Play, CheckCircle2, Cpu, Activity, ArrowRight } from 'lucide-react';
 
 interface LandingPageProps {
   onEnter: () => void;
@@ -99,15 +99,6 @@ export const LandingPage = ({ onEnter }: LandingPageProps) => {
 
         {/* Title */}
         <div className="animate-fade-in">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{
-                background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
-                boxShadow: '0 0 32px rgba(139,92,246,0.5)',
-              }}>
-              <Activity className="w-6 h-6 text-white" />
-            </div>
-          </div>
           <h1 className="text-[80px] font-black text-white tracking-[0.15em] uppercase leading-none"
             style={{ textShadow: '0 0 60px rgba(139,92,246,0.4)' }}>
             FEDDA
@@ -200,29 +191,34 @@ export const LandingPage = ({ onEnter }: LandingPageProps) => {
             </div>
           </div>
 
-          {/* Enter button */}
+          {/* Enter button — enabled when ready */}
           <button
             id="landing-enter-btn"
-            onClick={() => { if (showDoneVideo) onEnter(); }}
-            disabled={!showDoneVideo}
-            className={`w-full py-4 font-black text-base uppercase tracking-[0.2em] rounded-2xl transition-all duration-300 ${
-              showDoneVideo
-                ? 'text-white cursor-pointer active:scale-95 hover:scale-[1.02]'
-                : 'cursor-not-allowed'
-            }`}
+            onClick={onEnter}
+            className="w-full py-4 font-black text-base uppercase tracking-[0.2em] rounded-2xl transition-all duration-300 text-white cursor-pointer active:scale-95 hover:scale-[1.02]"
             style={showDoneVideo ? {
               background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
               boxShadow: '0 0 24px rgba(139,92,246,0.5)',
             } : {
-              background: 'rgba(255,255,255,0.06)',
-              color: 'rgba(255,255,255,0.3)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.1)',
             }}
           >
             <span className="flex items-center justify-center gap-3">
               Enter System <Play className="w-4 h-4 fill-current" />
             </span>
           </button>
+
+          {/* Explore without backend */}
+          {!showDoneVideo && (
+            <button
+              onClick={onEnter}
+              className="flex items-center justify-center gap-1.5 text-[11px] text-slate-600 hover:text-slate-400 transition-colors mx-auto"
+            >
+              <ArrowRight className="w-3 h-3" />
+              Explore without backend
+            </button>
+          )}
         </div>
       </div>
     </div>
